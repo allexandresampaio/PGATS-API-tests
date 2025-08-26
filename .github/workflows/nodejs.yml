@@ -23,4 +23,4 @@ jobs:
       run: npm install
 
     - name: Run tests
-      run: npx mocha
+      run: npm test
