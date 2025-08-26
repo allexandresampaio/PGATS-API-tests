@@ -18,6 +18,7 @@ describe('Transfer Controller', () => {
                     amount: 50
                 });
             expect(resposta.status).to.equal(400);
+            expect(resposta.body).to.have.property('error', 'Usuário remetente ou destinatário não encontrado');
         });
     });
 
