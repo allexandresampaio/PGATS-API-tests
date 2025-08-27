@@ -42,6 +42,33 @@ describe('Transfer Controller', () => {
             //Resete o mock
             sinon.restore();
         });
+
+
+        //Mockar apenas a funcao transfer
+        it('Usando Mocks: Quando informo origem e destino existentes, o retorno será 201', async () => {
+            const transferServiceMock = sinon.stub(transferService, 'transfer');
+            transferServiceMock.returns({
+                from: "alle",
+                to: "desa",
+                amount: 50,
+                date: new Date().toISOString()
+            });
+
+            const resposta = await request(app)
+                .post('/api/transfer')
+                .send({
+                    from: "alle",
+                    to: "desa",
+                    amount: 50
+                });
+            expect(resposta.status).to.equal(201);
+            expect(resposta.body).to.have.property('from', 'alle');
+            expect(resposta.body).to.have.property('to', 'desa');
+            expect(resposta.body).to.have.property('amount', 50);
+
+            //Resete o mock
+            sinon.restore();
+        });
     });
 
     describe('GET, /api/transfer', () => {
