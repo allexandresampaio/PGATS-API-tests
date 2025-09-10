@@ -27,7 +27,7 @@ jobs:
       run: npm run test-controller
       
     - name: Put the API on
-      run: npm rstart &
+      run: npm start &
 
     - name: Wait until the API is on
       run: sleep 5
