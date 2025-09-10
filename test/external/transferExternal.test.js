@@ -3,7 +3,7 @@ const request = require('supertest');
 const { expect } = require('chai');
 
 //Testes
-describe('Transfer Controller', () => {
+describe('Transfer External', () => {
     describe('POST, /api/transfer', () => {
         it('Quando informo origem e destino inexistentes, o retorno será 400', async () => {
             const resposta = await request('http://localhost:3000')
