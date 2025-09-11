@@ -16,15 +16,15 @@ describe('Transfer External', () => {
                 
             const tokenCapturado = respostaLogin.body.token;
             
-            //console.log(respostaLogin.body)
-            //console.log(tokenCapturado)
+            console.log(respostaLogin.body)
+            console.log(tokenCapturado)
 
             const resposta = await request('http://localhost:3000')
                 .post('/api/transfer')
                 .set('Authorization', `Bearer ${tokenCapturado}`)
                 .send({
                     from: "alle",
-                    to: "andresa",
+                    to: "andresa", //usuario inexistente
                     amount: 50
                 });
             expect(resposta.status).to.equal(400);
