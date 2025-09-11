@@ -3,17 +3,16 @@
   "version": "1.0.0",
   "description": "Esta API permite o registro, login, consulta de usuários e transferencia de valores",
   "main": "app.js",
-  
   "scripts": {
     "test": "mocha 'test/**/*.test.js' --timeout 10000",
     "test-external": "mocha 'test/external/*.test.js' --timeout 10000",
     "test-controller": "mocha 'test/controller/*.test.js' --timeout 10000",
     "start": "node src/server.js"
   },
-
   "dependencies": {
     "chai": "^6.0.1",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mocha": "^11.7.1",
     "sinon": "^21.0.0",
     "supertest": "^7.1.4",
