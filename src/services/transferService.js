@@ -20,6 +20,11 @@ function transfer({ from, to, amount }) {
   return transfer;
 }
 
+function getAllTransfers() {
+  return transfers;
+}
+
 module.exports = {
   transfer,
+  getAllTransfers,
 };

@@ -8,3 +8,8 @@ exports.transfer = (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+exports.getAll = (req, res) => {
+  const transfers = transferService.getAllTransfers();
+  res.json(transfers);
+};
