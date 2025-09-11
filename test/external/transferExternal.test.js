@@ -11,7 +11,7 @@ describe('Transfer External', () => {
                 .post('/api/auth/login')
                 .send({
                     "username": "alle",
-                    "password": "123456"
+                    "password": "$2b$08$xzWzYT1wbbv0buB5Yr0TsOd2p0NHuwKHqXtVJ4p5ebf4xBq5/eoAO"
                 });
                 
             const tokenCapturado = respostaLogin.body.token;
