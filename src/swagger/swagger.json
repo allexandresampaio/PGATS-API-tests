@@ -42,7 +42,7 @@
                 "properties": {
                   "username": { "type": "string" },
                   "password": { "type": "string" },
-                  "favorecido": { "type": "boolean" }
+                  "favorecidos": { "oneOf": [ { "type": "string" }, { "type": "array", "items": { "type": "string" } } ] }
                 },
                 "required": ["username", "password"]
               }
