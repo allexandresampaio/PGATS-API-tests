@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
+    - name: Run controller tests
       #run: npm test
       run: npm run test-controller
       

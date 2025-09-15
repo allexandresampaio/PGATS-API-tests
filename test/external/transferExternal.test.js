@@ -16,10 +16,10 @@ describe('Transfer External', () => {
                 
             const tokenCapturado = respostaLogin.body.token;
 
-            console.log("_________________________")
-            console.log(respostaLogin.body)
-            console.log(tokenCapturado)
-            console.log("_________________________")
+            //console.log("_________________________")
+            //console.log(respostaLogin.body)
+            //console.log(tokenCapturado)
+            //console.log("_________________________")
 
 
             const resposta = await request('http://localhost:3000')
