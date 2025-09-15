@@ -11,13 +11,16 @@ describe('Transfer External', () => {
                 .post('/api/auth/login')
                 .send({
                     "username": "alle",
-                    "password": "$2b$08$xzWzYT1wbbv0buB5Yr0TsOd2p0NHuwKHqXtVJ4p5ebf4xBq5/eoAO"
+                    "password": "123456"
                 });
                 
             const tokenCapturado = respostaLogin.body.token;
-            
+
+            console.log("_________________________")
             console.log(respostaLogin.body)
             console.log(tokenCapturado)
+            console.log("_________________________")
+
 
             const resposta = await request('http://localhost:3000')
                 .post('/api/transfer')

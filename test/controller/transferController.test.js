@@ -73,7 +73,7 @@ describe('Transfer Controller', () => {
 
          //Mockar apenas a funcao transfer e usando uma fixture pra comparar a resposta
          //only = apenas esse teste vai rodar
-        it.only('Usando Mocks e Fixture  : Quando informo origem e destino existentes, o retorno será 201', async () => {
+        it('Usando Mocks e Fixture  : Quando informo origem e destino existentes, o retorno será 201', async () => {
              //Mockar apenas a funcão transfer do Service            
             const transferServiceMock = sinon.stub(transferService, 'transfer');
             transferServiceMock.returns({

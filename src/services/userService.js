@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const { users } = require('../models/userModel');
 
 function registerUser({ username, password, favorecidos }) {
@@ -10,7 +11,8 @@ function registerUser({ username, password, favorecidos }) {
   } else if (Array.isArray(favorecidos)) {
     favArr = favorecidos;
   }
-  const user = { username, password, favorecidos: favArr, saldo: 10000 };
+  const hashedPassword = bcrypt.hashSync(password, 8);
+  const user = { username, password: hashedPassword, favorecidos: favArr, saldo: 10000 };
   users.push(user);
   return user;
 }

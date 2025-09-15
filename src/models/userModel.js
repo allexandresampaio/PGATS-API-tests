@@ -7,9 +7,15 @@ const users = [
     password: bcrypt.hashSync('123456', 8),
     favorecidos: [ 'desa' ],
     saldo: 10000
+  },
+  {
+    username: 'desa',
+    password: bcrypt.hashSync('123456', 8),
+    favorecidos: [ 'alle' ],
+    saldo: 10000
   }
 ];
 
 module.exports = {
-  users,
+  users
 };
