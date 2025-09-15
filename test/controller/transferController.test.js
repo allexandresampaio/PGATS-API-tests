@@ -119,11 +119,12 @@ describe('Transfer Controller', () => {
             //expect(resposta.body).to.have.property('from', 'alle');
             //expect(resposta.body).to.have.property('to', 'desa');
             //expect(resposta.body).to.have.property('amount', 50);
-
+        });
+        
+        afterEach(() => {
             //Resete o mock
             sinon.restore();
-        });
-
+        })
 
     });
 
