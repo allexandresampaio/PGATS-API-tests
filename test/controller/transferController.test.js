@@ -14,7 +14,7 @@ describe('Transfer Controller', () => {
     describe('POST, /api/transfer', () => {
         it('Quando informo origem e destino inexistentes, o retorno será 400', async () => {
             //capturar o token
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(app)
                 .post('/api/auth/login')
                 .send({
                     "username": "alle",
@@ -40,7 +40,7 @@ describe('Transfer Controller', () => {
             const transferServiceMock = sinon.stub(transferService, 'transfer');
             transferServiceMock.throws(new Error('Usuário remetente ou destinatário não encontrado'));
 //capturar o token
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(app)
                 .post('/api/auth/login')
                 .send({
                     "username": "alle",
@@ -68,7 +68,7 @@ describe('Transfer Controller', () => {
         //Mockar apenas a funcao transfer
         it('Usando Mocks: Quando informo origem e destino existentes, o retorno será 201', async () => {
 //capturar o token
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(app)
                 .post('/api/auth/login')
                 .send({
                     "username": "alle",
@@ -107,7 +107,7 @@ describe('Transfer Controller', () => {
          //only = apenas esse teste vai rodar
         it('Usando Mocks e Fixture  : Quando informo origem e destino existentes, o retorno será 201', async () => {
 //capturar o token
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(app)
                 .post('/api/auth/login')
                 .send({
                     "username": "alle",
