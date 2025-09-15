@@ -5,7 +5,7 @@ const { expect } = require('chai');
 //Testes
 describe('Transfer External', () => {
     describe('POST, /api/transfer', () => {
-        it.only('Quando informo origem e destino inexistentes, o retorno será 400', async () => {
+        it('Quando informo origem e destino inexistentes, o retorno será 400', async () => {
             //capturar o token
             const respostaLogin = await request('http://localhost:3000')
                 .post('/api/auth/login')
