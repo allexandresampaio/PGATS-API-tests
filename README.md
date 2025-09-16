@@ -41,3 +41,77 @@ Para testar a API, utilize ferramentas como Postman, Insomnia ou scripts automat
 ## Documentação
 
 Acesse `/api-docs` para visualizar e testar os endpoints via Swagger UI.
+
+## API GraphQL
+
+A API GraphQL está disponível em `/graphql` usando ApolloServer.
+
+### Como rodar
+
+```bash
+node src/server.js
+```
+
+### Como acessar
+- Playground GraphQL: http://localhost:3000/graphql
+
+### Bibliotecas necessárias
+Execute:
+```bash
+npm install apollo-server-express graphql
+```
+
+### Exemplos de queries e mutations
+
+#### Listar usuários
+```graphql
+query {
+  users {
+    username
+    favorecidos
+    saldo
+  }
+}
+```
+
+#### Registrar usuário
+```graphql
+mutation {
+  registerUser(username: "novo", password: "123456", favorecidos: ["alle"]) {
+    username
+    favorecidos
+    saldo
+  }
+}
+```
+
+#### Login
+```graphql
+mutation {
+  login(username: "alle", password: "123456")
+}
+```
+
+#### Listar transferências
+```graphql
+query {
+  transfers {
+    from
+    to
+    amount
+    date
+  }
+}
+```
+
+#### Realizar transferência
+```graphql
+mutation {
+  transfer(from: "alle", to: "desa", amount: 100) {
+    from
+    to
+    amount
+    date
+  }
+}
+```
