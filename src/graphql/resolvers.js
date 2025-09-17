@@ -21,7 +21,8 @@ const resolvers = {
     },
     login: (_, { username, password }) => {
       const user = authService.login({ username, password });
-      return jwt.sign({ username: user.username }, SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ username: user.username }, SECRET, { expiresIn: '1h' });
+      return { token };
     },
     transfer: (parent, { from, to, amount }, context) => {
       if (!context.user) throw new Error('Autenticação obrigatória');

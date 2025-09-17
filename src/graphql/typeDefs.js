@@ -14,6 +14,10 @@ const typeDefs = gql`
     date: String
   }
 
+  type LoginResponse {
+    token: String!
+  }
+
   type Query {
     users: [User]
     transfers: [Transfer]
@@ -21,7 +25,7 @@ const typeDefs = gql`
 
   type Mutation {
     registerUser(username: String!, password: String!, favorecidos: [String]): User
-    login(username: String!, password: String!): String
+    login(username: String!, password: String!): LoginResponse
     transfer(from: String!, to: String!, amount: Float!): Transfer
   }
 `;
