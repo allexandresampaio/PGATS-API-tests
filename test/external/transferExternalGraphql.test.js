@@ -2,7 +2,7 @@ const request = require('supertest');
 const { expect } = require('chai');
 
 describe('Testes de Transferência', () => {
-    it.only('Validar que é possível transferir entre duas contas', async () => {
+    it('Validar que é possível transferir entre duas contas', async () => {
         //capturar o token
         const respostaLogin = await request('http://localhost:4000')
         .post('/graphql')
