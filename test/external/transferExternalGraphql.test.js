@@ -1,7 +1,7 @@
 const request = require('supertest');
 const { expect } = require('chai');
 
-describe('Testes de Transferência', () => {
+describe('Testes de Transferência - Graphql', () => {
     it('Validar que é possível transferir entre duas contas', async () => {
         //capturar o token
         const respostaLogin = await request('http://localhost:4000')

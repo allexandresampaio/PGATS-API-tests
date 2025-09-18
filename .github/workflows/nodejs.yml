@@ -29,6 +29,9 @@ jobs:
     - name: Put the API on
       run: npm start &
 
+    - name: Put the Graphql API on
+      run: npm start-graphql &
+
     - name: Wait until the API is on
       run: sleep 5
     
