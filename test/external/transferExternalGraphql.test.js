@@ -3,8 +3,6 @@ const { expect } = require('chai');
 
 describe('Testes de Transferência - Graphql', () => {
 
-    let tokenCapturado = null;
-
     beforeEach(async () => {
         //capturar o token
         const respostaLogin = await request('http://localhost:4000')
@@ -22,7 +20,7 @@ describe('Testes de Transferência - Graphql', () => {
             }
         })
 
-        this.tokenCapturado = respostaLogin.body.data.login.token
+        tokenCapturado = respostaLogin.body.data.login.token
         //console.log(this.tokenCapturado);
     })
 
@@ -30,7 +28,7 @@ describe('Testes de Transferência - Graphql', () => {
         
         const respostaTransferencia = await request('http://localhost:4000')
         .post('/graphql')
-        .set('Authorization', `Bearer ${this.tokenCapturado}`)
+        .set('Authorization', `Bearer ${tokenCapturado}`)
         .send({
             query: `
                 mutation Transfer($from: String!, $to: String!, $amount: Float!) {
@@ -59,7 +57,7 @@ describe('Testes de Transferência - Graphql', () => {
     it('Validar que não é possível realizar transferência com valor acima do saldo em conta', async () => {
         const respostaTransferencia = await request('http://localhost:4000')
         .post('/graphql')
-        .set('Authorization', `Bearer ${this.tokenCapturado}`)
+        .set('Authorization', `Bearer ${tokenCapturado}`)
         .send({
             query: `
                 mutation Transfer($from: String!, $to: String!, $amount: Float!) {
