@@ -35,51 +35,13 @@ describe('Testes de Transferência - Graphql', () => {
             .to.deep.equal(respostaEsperada.data.transfer);
     });
 
-    const testesDeErrosDeNegocio = [
-        {
-            nomeDoTeste: 'Validar que não é possível realizar transferências com saldo insuficiente',
-            createTransfer: {
-                from: 'alle',
-                to: 'desa',
-                amount: 10000.01
-            },
-            mensagemEsperada: 'Saldo insuficiente'
-        },
-        {
-            nomeDoTeste: 'Validar que não é possível realizar transferências com destinatário inválido',
-            createTransfer: {
-                from: 'alle',
-                to: 'desax',
-                amount: 312
-            },
-            mensagemEsperada: 'Usuário remetente ou destinatário não encontrado'
-        },
-        {
-            nomeDoTeste: 'Validar que não é possível realizar transferências com remetente inválido',
-            createTransfer: {
-                from: 'allex',
-                to: 'desa',
-                amount: 312
-            },
-            mensagemEsperada: 'Usuário remetente ou destinatário não encontrado'
-        }
-    ];
-
+    const testesDeErrosDeNegocio = require('../fixture/requests/transferencia/createTransferWithError.json');
     testesDeErrosDeNegocio.forEach(variaveisDeTeste => {
         it(variaveisDeTeste.nomeDoTeste, async () => {
             const respostaTransferencia = await request(process.env.BASE_URL_GRAPHQL)
                 .post('/graphql')
                 .set('Authorization', `Bearer ${tokenCapturado}`)
-                .send({
-                    query: `mutation Transfer($from: String!, $to: String!, $amount: Float!) { 
-                        transfer(from: $from, to: $to, amount: $amount) {
-                            from 
-                            to 
-                            amount 
-                            date
-                        }}`,
-                    variables: variaveisDeTeste.createTransfer    
-                });
+                .send(variaveisDeTeste.createTransfer);
             //console.log(respostaTransferencia.body.errors[0].message);
             expect(respostaTransferencia.status).to.equal(200);  
             expect(respostaTransferencia.body.errors[0].message).to.equal(variaveisDeTeste.mensagemEsperada);
