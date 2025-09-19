@@ -1,13 +1,14 @@
 //Bibliotecas
 const request = require('supertest');
 const { expect } = require('chai');
+require('dotenv').config();
 
 //Testes
 describe('Transfer External', () => {
     describe('POST, /api/transfer', () => {
         it('Quando informo origem e destino inexistentes, o retorno será 400', async () => {
             //capturar o token
-            const respostaLogin = await request('http://localhost:3000')
+            const respostaLogin = await request(process.env.BASE_URL_REST)
                 .post('/api/auth/login')
                 .send({
                     "username": "alle",
@@ -22,7 +23,7 @@ describe('Transfer External', () => {
             //console.log("_________________________")
 
 
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request(process.env.BASE_URL_REST)
                 .post('/api/transfer')
                 .set('Authorization', `Bearer ${tokenCapturado}`)
                 .send({

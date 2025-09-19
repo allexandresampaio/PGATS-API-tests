@@ -19,6 +19,9 @@ node src/server.js
 
 A API estará disponível em `http://localhost:3000`.
 
+## Configuração
+Antes de seguir, crie um arquivo .env na pasta raiz contendo as propriedades BASE_URL_REST e BASE_URL_GRAPHQL com a URL desses serviços.
+
 ## Endpoints
 
 - `POST /api/auth/login` — Login de usuário
@@ -53,7 +56,7 @@ node src/server.js
 ```
 
 ### Como acessar
-- Playground GraphQL: http://localhost:3000/graphql
+- Playground GraphQL: http://localhost:4000/graphql
 
 ### Bibliotecas necessárias
 Execute:

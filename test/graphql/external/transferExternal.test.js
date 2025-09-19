@@ -1,5 +1,6 @@
 const request = require('supertest');
 const { expect, use } = require('chai');
+require('dotenv').config();
 
 const chaiExclude = require('chai-exclude');
 use(chaiExclude);
@@ -9,7 +10,7 @@ describe('Testes de Transferência - Graphql', () => {
     before(async () => { //beforeEach somente se os testes demorassem mais que o tempo do token
         //capturar o token
         const loginUser = require('../fixture/requests/login/loginUser.json');
-        const respostaLogin = await request('http://localhost:4000')
+        const respostaLogin = await request(process.env.BASE_URL_GRAPHQL)
         .post('/graphql')
         .send(loginUser)
         tokenCapturado = respostaLogin.body.data.login.token
@@ -22,7 +23,7 @@ describe('Testes de Transferência - Graphql', () => {
 
     it('Validar que é possível transferir entre duas contas', async () => {
         const respostaEsperada = require('../fixture/returns/transferencia/validarTransferenciaEntre2Contas.json')
-        const respostaTransferencia = await request('http://localhost:4000')
+        const respostaTransferencia = await request(process.env.BASE_URL_GRAPHQL)
             .post('/graphql')
             .set('Authorization', `Bearer ${tokenCapturado}`)
             .send(createTransfer)
@@ -36,7 +37,7 @@ describe('Testes de Transferência - Graphql', () => {
 
     it('Validar que não é possível realizar transferência com valor acima do saldo em conta', async () => {
         createTransfer.variables.amount = 10000.01
-        const respostaTransferencia = await request('http://localhost:4000')
+        const respostaTransferencia = await request(process.env.BASE_URL_GRAPHQL)
         .post('/graphql')
         .set('Authorization', `Bearer ${tokenCapturado}`)
         .send(createTransfer)
