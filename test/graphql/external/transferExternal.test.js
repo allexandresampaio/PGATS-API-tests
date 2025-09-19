@@ -13,8 +13,11 @@ describe('Testes de Transferência - Graphql', () => {
         //console.log(this.tokenCapturado);
     })
 
+    beforeEach(() => {
+        createTransfer = require('../fixture/requests/transferencia/createTransfer.json')
+    })
+
     it('Validar que é possível transferir entre duas contas', async () => {
-        const createTransfer = require('../fixture/requests/transferencia/createTransfer.json')
         const respostaTransferencia = await request('http://localhost:4000')
         .post('/graphql')
         .set('Authorization', `Bearer ${tokenCapturado}`)
@@ -29,7 +32,6 @@ describe('Testes de Transferência - Graphql', () => {
     });
 
     it('Validar que não é possível realizar transferência com valor acima do saldo em conta', async () => {
-        const createTransfer = require('../fixture/requests/transferencia/createTransfer.json')
         createTransfer.variables.amount = 10000.01
         const respostaTransferencia = await request('http://localhost:4000')
         .post('/graphql')
