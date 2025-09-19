@@ -3,48 +3,22 @@ const { expect } = require('chai');
 
 describe('Testes de Transferência - Graphql', () => {
 
-    beforeEach(async () => {
+    before(async () => { //beforeEach somente se os testes demorassem mais que o tempo do token
         //capturar o token
+        const loginUser = require('../fixture/requests/login/loginUser.json');
         const respostaLogin = await request('http://localhost:4000')
         .post('/graphql')
-        .send({
-            query: `
-                mutation Login($username: String!, $password: String!) {
-                    login(username: $username, password: $password) {
-                        token
-                    }
-                } `,
-            variables: {
-                username: 'alle',
-                password: '123456'
-            }
-        })
-
+        .send(loginUser)
         tokenCapturado = respostaLogin.body.data.login.token
         //console.log(this.tokenCapturado);
     })
 
     it('Validar que é possível transferir entre duas contas', async () => {
-        
+        const createTransfer = require('../fixture/requests/transferencia/createTransfer.json')
         const respostaTransferencia = await request('http://localhost:4000')
         .post('/graphql')
         .set('Authorization', `Bearer ${tokenCapturado}`)
-        .send({
-            query: `
-                mutation Transfer($from: String!, $to: String!, $amount: Float!) {
-                    transfer(from: $from, to: $to, amount: $amount) {
-                        from
-                        to
-                        amount
-                        date
-                    }
-                } `,
-            variables: {
-                from: 'alle',
-                to: 'desa',
-                amount: 312
-            }
-        })
+        .send(createTransfer)
         expect(respostaTransferencia.status).to.equal(200);
         expect(respostaTransferencia.body.data.transfer).to.include({
             from: 'alle',
@@ -55,25 +29,12 @@ describe('Testes de Transferência - Graphql', () => {
     });
 
     it('Validar que não é possível realizar transferência com valor acima do saldo em conta', async () => {
+        const createTransfer = require('../fixture/requests/transferencia/createTransfer.json')
+        createTransfer.variables.amount = 10000.01
         const respostaTransferencia = await request('http://localhost:4000')
         .post('/graphql')
         .set('Authorization', `Bearer ${tokenCapturado}`)
-        .send({
-            query: `
-                mutation Transfer($from: String!, $to: String!, $amount: Float!) {
-                    transfer(from: $from, to: $to, amount: $amount) {
-                        from
-                        to
-                        amount
-                        date
-                    }
-                } `,
-            variables: {
-                from: 'alle',
-                to: 'desa',
-                amount: 10000.01
-            }
-        })
+        .send(createTransfer)
         //console.log(respostaTransferencia.body.errors[0].message);
         expect(respostaTransferencia.status).to.equal(200);  
         expect(respostaTransferencia.body.errors[0].message).to.equal('Saldo insuficiente');
