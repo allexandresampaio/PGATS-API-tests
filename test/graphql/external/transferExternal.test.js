@@ -1,5 +1,8 @@
 const request = require('supertest');
-const { expect } = require('chai');
+const { expect, use } = require('chai');
+
+const chaiExclude = require('chai-exclude');
+use(chaiExclude);
 
 describe('Testes de Transferência - Graphql', () => {
 
@@ -18,17 +21,17 @@ describe('Testes de Transferência - Graphql', () => {
     })
 
     it('Validar que é possível transferir entre duas contas', async () => {
+        const respostaEsperada = require('../fixture/returns/transferencia/validarTransferenciaEntre2Contas.json')
         const respostaTransferencia = await request('http://localhost:4000')
-        .post('/graphql')
-        .set('Authorization', `Bearer ${tokenCapturado}`)
-        .send(createTransfer)
+            .post('/graphql')
+            .set('Authorization', `Bearer ${tokenCapturado}`)
+            .send(createTransfer)
         expect(respostaTransferencia.status).to.equal(200);
-        expect(respostaTransferencia.body.data.transfer).to.include({
-            from: 'alle',
-            to: 'desa',
-            amount: 312
-        });
-        expect(respostaTransferencia.body.data.transfer.date).to.exist;
+        
+        //confirmando por fixture
+        expect(respostaTransferencia.body.data.transfer)
+            .excluding('date')
+            .to.deep.equal(respostaEsperada.data.transfer);
     });
 
     it('Validar que não é possível realizar transferência com valor acima do saldo em conta', async () => {
