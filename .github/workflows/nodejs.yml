@@ -21,7 +21,12 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-
+    
+    - name: criando .env file
+      run: |
+        echo "BASE_URL_REST=http://localhost:3000" >> .env
+        echo "BASE_URL_GRAPHQL=http://localhost:4000" >> .env
+    
     - name: Run controller tests - REST
       run: npm run test-rest-controller
 
